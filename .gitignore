@@ -1,0 +1,8 @@
+# Higgsfield credentials — live tokens, never commit
+credentials.json
+.config/higgsfield/
+.higgsfield/
+.higgsfield-cli/
+
+# Node
+node_modules/
