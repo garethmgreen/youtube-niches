@@ -1,0 +1,566 @@
+<title>The 30-Second Cliff</title>
+<style>
+  :root {
+      --accent: #008a6e;
+      --alarm: #b03f26;
+      --ink: #171b1d;
+      --ink2: #4a5559;
+      --mut: #6d787c;
+      --rule: #d3d7d1;
+      --surf: #f2f3f0;
+      --card: #fbfbf9;
+    --bar-mut: #c2c8c4; --dot-mut: #9aa4a2;
+    --mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --accent: #1faa8d;
+      --alarm: #dd6d49;
+      --ink: #eef0ec;
+      --ink2: #a8b4b8;
+      --mut: #7f8b8f;
+      --rule: #2e3538;
+      --surf: #171b1d;
+      --card: #1e2325;
+      --bar-mut: #39423f; --dot-mut: #5d6a68;
+    }
+  }
+  :root[data-theme="dark"] {
+      --accent: #1faa8d;
+      --alarm: #dd6d49;
+      --ink: #eef0ec;
+      --ink2: #a8b4b8;
+      --mut: #7f8b8f;
+      --rule: #2e3538;
+      --surf: #171b1d;
+      --card: #1e2325;
+    --bar-mut: #39423f; --dot-mut: #5d6a68;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--surf); color: var(--ink);
+    font-family: var(--serif); font-size: 17px; line-height: 1.62;
+    margin: 0; padding: 0 20px 96px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 780px; margin: 0 auto; }
+  .mono { font-family: var(--mono); }
+
+  header { padding: 64px 0 36px; border-bottom: 2px solid var(--ink); }
+  .eyebrow {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--mut); margin: 0 0 22px;
+    display: flex; flex-wrap: wrap; gap: 6px 14px;
+  }
+  h1 {
+    font-family: var(--mono); font-size: clamp(38px, 8vw, 62px); line-height: 1.02;
+    letter-spacing: -0.03em; font-weight: 600; margin: 0 0 20px; text-wrap: balance;
+  }
+  .standfirst { font-size: 20px; line-height: 1.5; color: var(--ink2); margin: 0; max-width: 62ch; }
+
+  h2 {
+    font-family: var(--mono); font-size: 13px; letter-spacing: 0.13em; text-transform: uppercase;
+    font-weight: 600; color: var(--accent); margin: 0 0 6px;
+  }
+  h2 + .dek {
+    font-family: var(--serif); font-size: 27px; line-height: 1.24; letter-spacing: -0.015em;
+    margin: 0 0 18px; text-wrap: balance; font-weight: 600;
+  }
+  section { padding: 46px 0; border-bottom: 1px solid var(--rule); }
+  section:last-of-type { border-bottom: none; }
+  p { margin: 0 0 16px; max-width: 66ch; }
+  strong { font-weight: 700; }
+  .lede { font-size: 18.5px; }
+
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(184px, 1fr)); gap: 2px;
+           background: var(--rule); border: 1px solid var(--rule); margin: 34px 0 0; }
+  .kpi { background: var(--card); padding: 20px 18px; }
+  .kpi .fig { font-family: var(--mono); font-size: 40px; line-height: 1; font-weight: 600;
+               letter-spacing: -0.035em; font-variant-numeric: tabular-nums; }
+  .kpi .fig.bad { color: var(--alarm); }
+  .kpi .fig.good { color: var(--accent); }
+  .kpi .lab { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase;
+               color: var(--mut); margin-top: 10px; line-height: 1.45; }
+
+  figure { margin: 26px 0; background: var(--card); border: 1px solid var(--rule); padding: 20px 18px 14px;
+            overflow-x: auto; }
+  figcaption { font-family: var(--mono); font-size: 11.5px; color: var(--mut); line-height: 1.5;
+                margin-top: 12px; letter-spacing: 0.01em; }
+  .ct { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.12em; fill: var(--mut); }
+  .cl { font-family: var(--mono); font-size: 12.5px; fill: var(--ink2); }
+  .cv { font-family: var(--mono); font-size: 13px; font-weight: 600; fill: var(--ink); font-variant-numeric: tabular-nums; }
+  .cv.em { fill: var(--accent); }
+  .cn, .cn2 { font-family: var(--mono); font-size: 10.5px; fill: var(--mut); }
+  .cax { font-family: var(--mono); font-size: 11px; fill: var(--mut); }
+  .clg { font-family: var(--mono); font-size: 11.5px; font-weight: 600; }
+  .cthr { font-family: var(--mono); font-size: 10.5px; fill: var(--alarm); letter-spacing: 0.08em; }
+  .grid { stroke: var(--rule); stroke-width: 1; }
+  .thr { stroke: var(--alarm); stroke-width: 1.5; stroke-dasharray: 3 4; opacity: 0.75; }
+
+  .tw { overflow-x: auto; margin: 22px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  th { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.09em; text-transform: uppercase;
+        color: var(--mut); text-align: left; font-weight: 600; padding: 0 12px 9px 0;
+        border-bottom: 1px solid var(--ink); white-space: nowrap; }
+  td { padding: 9px 12px 9px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  th.r, td.r { text-align: right; padding-right: 0; }
+  td.n { font-family: var(--mono); font-variant-numeric: tabular-nums; font-size: 14px; white-space: nowrap; }
+  td.em { font-weight: 600; }
+  tr.hi td.em { color: var(--accent); }
+  tr.flag td.em, tr.flag td.n:first-child { color: var(--alarm); }
+  tr.gap td { font-family: var(--mono); font-size: 11px; color: var(--mut); text-align: center;
+               padding: 12px 0; letter-spacing: 0.08em; }
+
+  .callout { border-left: 3px solid var(--accent); padding: 4px 0 4px 20px; margin: 26px 0; }
+  .callout.warn { border-left-color: var(--alarm); }
+  .callout p { margin: 0 0 10px; }
+  .callout p:last-child { margin: 0; }
+
+  ol.steps { list-style: none; counter-reset: s; padding: 0; margin: 22px 0 0; }
+  ol.steps li { counter-increment: s; position: relative; padding: 0 0 22px 46px; margin: 0; max-width: 66ch; }
+  ol.steps li::before {
+    content: counter(s, decimal-leading-zero); position: absolute; left: 0; top: 1px;
+    font-family: var(--mono); font-size: 12px; font-weight: 600; color: var(--accent);
+    letter-spacing: 0.06em;
+  }
+  ol.steps h3 { font-family: var(--serif); font-size: 19px; margin: 0 0 5px; font-weight: 700; }
+  ol.steps p { margin: 0; color: var(--ink2); font-size: 16.5px; }
+
+  ul.plain { padding-left: 20px; margin: 0 0 16px; max-width: 66ch; }
+  ul.plain li { margin-bottom: 9px; }
+
+  footer { padding: 40px 0 0; font-family: var(--mono); font-size: 11.5px; color: var(--mut);
+            line-height: 1.7; border-top: 2px solid var(--ink); margin-top: 20px; }
+  @media (max-width: 560px) { body { font-size: 16px; } .kpi .fig { font-size: 32px; } }
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow"><span>Untold America</span><span>·</span><span>116 reels</span><span>·</span>
+    <span>27 Apr – 15 Aug 2026</span><span>·</span><span>Facebook video export</span></div>
+  <h1>The 30-Second<br>Cliff</h1>
+  <p class="standfirst">Your reels didn't stop working. One format stopped being made. Reels
+    under 30 seconds returned a median of 28,228 views; reels of 45 seconds or more
+    returned 2,743. That gap holds inside every month of the data.</p>
+
+  <div class="kpis">
+    <div class="kpi"><div class="fig good">10.3×</div>
+      <div class="lab">More views from reels<br>under 30 seconds</div></div>
+    <div class="kpi"><div class="fig">94%</div>
+      <div class="lab">Of watch time comes from<br>recommendations, not followers</div></div>
+    <div class="kpi"><div class="fig good">13/14</div>
+      <div class="lab">Short reels that cleared<br>7,900 views</div></div>
+  </div>
+</header>
+
+<section>
+  <h2>The finding</h2>
+  <p class="dek">Length is the lever, and the drop-off is a cliff rather than a slope.</p>
+  <p class="lede">Sorting all 116 reels by length shows something unusually clean. Everything under
+    30 seconds performs in a different league, and the fall between the 20–30s band and the 30–45s
+    band is a factor of about eighteen — not a gentle decline.</p>
+  <figure><svg viewBox="0 0 720 318" width="100%" role="img" aria-label="Median views by reel length">
+<text x="0" y="14" class="ct">MEDIAN VIEWS BY REEL LENGTH</text>
+<text x="86" y="43" class="cl" text-anchor="end">under 20s</text>
+<rect x="96" y="30" width="510.9" height="20" rx="4" fill="var(--accent)"><title>under 20s: median 27,764 views across 5 reels</title></rect>
+<text x="614.9048199909386" y="45" class="cv em">27,764</text>
+<text x="614.9048199909386" y="45" class="cn" dx="60.400000000000006">n=5</text>
+<text x="86" y="89" class="cl" text-anchor="end">20–30s</text>
+<rect x="96" y="76" width="528.0" height="20" rx="4" fill="var(--accent)"><title>20–30s: median 28,693 views across 9 reels</title></rect>
+<text x="632.0" y="91" class="cv em">28,693</text>
+<text x="632.0" y="91" class="cn" dx="60.400000000000006">n=9</text>
+<text x="86" y="135" class="cl" text-anchor="end">30–45s</text>
+<rect x="96" y="122" width="28.4" height="20" rx="4" fill="var(--bar-mut)"><title>30–45s: median 1,543 views across 22 reels</title></rect>
+<text x="132.3938242776984" y="137" class="cv">1,543</text>
+<text x="132.3938242776984" y="137" class="cn" dx="52.0">n=22</text>
+<text x="86" y="181" class="cl" text-anchor="end">45–60s</text>
+<rect x="96" y="168" width="25.1" height="20" rx="4" fill="var(--bar-mut)"><title>45–60s: median 1,364 views across 27 reels</title></rect>
+<text x="129.0999198410762" y="183" class="cv">1,364</text>
+<text x="129.0999198410762" y="183" class="cn" dx="52.0">n=27</text>
+<text x="86" y="227" class="cl" text-anchor="end">60–90s</text>
+<rect x="96" y="214" width="73.7" height="20" rx="4" fill="var(--bar-mut)"><title>60–90s: median 4,006 views across 39 reels</title></rect>
+<text x="177.71721325758895" y="229" class="cv">4,006</text>
+<text x="177.71721325758895" y="229" class="cn" dx="52.0">n=39</text>
+<text x="86" y="273" class="cl" text-anchor="end">90s+</text>
+<rect x="96" y="260" width="21.2" height="20" rx="4" fill="var(--bar-mut)"><title>90s+: median 1,150 views across 14 reels</title></rect>
+<text x="125.16195587774021" y="275" class="cv">1,150</text>
+<text x="125.16195587774021" y="275" class="cn" dx="52.0">n=14</text>
+</svg>
+    <figcaption>Median views per reel by length band. Bands under 30 seconds highlighted.
+      Medians, not averages, so single viral reels can't inflate a band.</figcaption>
+  </figure>
+  <p>The retention numbers explain the mechanism. Reels under 20 seconds hold 90%
+    of viewers on average; reels over 60 seconds hold 37%. Facebook's
+    recommendation engine reads that difference and decides whether to keep pushing a reel to people
+    who don't follow you. Since 94% of your watch time comes from exactly that
+    source, retention is not one metric among many — it is the whole distribution mechanism.</p>
+</section>
+
+<section>
+  <h2>Reel by reel</h2>
+  <p class="dek">Every single short reel you made worked.</p>
+  <p>Aggregates can hide a couple of lucky hits. This one doesn't: of the 14 reels you
+    published under 30 seconds, 13 cleared 7,900 views. The one that didn't was published
+    two days before the export.</p>
+  <figure><svg viewBox="0 0 720 340" width="100%" role="img" aria-label="Every reel: length versus views">
+<text x="0" y="14" class="ct">EVERY REEL — LENGTH VS VIEWS (LOG SCALE)</text>
+<line x1="54" y1="243.4" x2="706" y2="243.4" class="grid"/>
+<text x="46" y="247.4" class="cax" text-anchor="end">1,000</text>
+<line x1="54" y1="165.3" x2="706" y2="165.3" class="grid"/>
+<text x="46" y="169.3" class="cax" text-anchor="end">10,000</text>
+<line x1="54" y1="87.1" x2="706" y2="87.1" class="grid"/>
+<text x="46" y="91.1" class="cax" text-anchor="end">100,000</text>
+<text x="54.0" y="318" class="cax" text-anchor="middle">0s</text>
+<text x="226.8" y="318" class="cax" text-anchor="middle">30s</text>
+<text x="399.5" y="318" class="cax" text-anchor="middle">60s</text>
+<text x="572.3" y="318" class="cax" text-anchor="middle">90s</text>
+<line x1="226.8" y1="26" x2="226.8" y2="298" class="thr"/>
+<text x="220.8" y="38" class="cthr" text-anchor="end">30s</text>
+<circle cx="301.6" cy="266.4" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Apr 27 · 43s · 507 views · retention 64%</title></circle>
+<circle cx="272.8" cy="267.6" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>May 01 · 38s · 490 views · retention 53%</title></circle>
+<circle cx="318.9" cy="231.9" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>May 02 · 46s · 1,403 views · retention 32%</title></circle>
+<circle cx="318.9" cy="251.0" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>May 03 · 46s · 800 views · retention 62%</title></circle>
+<circle cx="457.1" cy="235.9" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>May 04 · 70s · 1,248 views · retention 51%</title></circle>
+<circle cx="462.9" cy="74.8" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>May 05 · 71s · 143,747 views · retention 51%</title></circle>
+<circle cx="347.7" cy="259.8" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>May 06 · 51s · 617 views · retention 58%</title></circle>
+<circle cx="353.5" cy="262.7" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>May 07 · 52s · 566 views · retention 80%</title></circle>
+<circle cx="388.0" cy="256.6" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>May 08 · 58s · 678 views · retention 44%</title></circle>
+<circle cx="474.4" cy="253.1" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>May 09 · 73s · 752 views · retention 44%</title></circle>
+<circle cx="295.9" cy="242.0" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>May 10 · 42s · 1,043 views · retention 43%</title></circle>
+<circle cx="272.8" cy="260.7" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>May 11 · 38s · 601 views · retention 52%</title></circle>
+<circle cx="589.6" cy="107.6" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>May 11 · 93s · 54,794 views · retention 51%</title></circle>
+<circle cx="434.1" cy="252.3" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>May 12 · 66s · 769 views · retention 39%</title></circle>
+<circle cx="560.8" cy="264.2" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>May 12 · 88s · 541 views · retention 31%</title></circle>
+<circle cx="261.3" cy="278.2" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>May 13 · 36s · 358 views · retention 68%</title></circle>
+<circle cx="330.4" cy="286.8" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>May 14 · 48s · 278 views · retention 58%</title></circle>
+<circle cx="589.6" cy="279.0" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>May 14 · 93s · 350 views · retention 54%</title></circle>
+<circle cx="376.5" cy="278.5" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>May 15 · 56s · 355 views · retention 40%</title></circle>
+<circle cx="272.8" cy="212.4" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>May 16 · 38s · 2,496 views · retention 51%</title></circle>
+<circle cx="572.3" cy="280.2" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>May 16 · 90s · 338 views · retention 43%</title></circle>
+<circle cx="261.3" cy="279.4" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>May 17 · 36s · 346 views · retention 67%</title></circle>
+<circle cx="353.5" cy="250.0" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>May 18 · 52s · 823 views · retention 40%</title></circle>
+<circle cx="612.6" cy="218.4" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>May 18 · 97s · 2,090 views · retention 28%</title></circle>
+<circle cx="572.3" cy="266.7" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>May 19 · 90s · 503 views · retention 51%</title></circle>
+<circle cx="428.3" cy="261.3" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>May 20 · 65s · 590 views · retention 42%</title></circle>
+<circle cx="261.3" cy="255.3" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>May 21 · 36s · 705 views · retention 52%</title></circle>
+<circle cx="601.1" cy="100.4" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>May 22 · 95s · 67,732 views · retention 46%</title></circle>
+<circle cx="520.5" cy="241.3" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>May 23 · 81s · 1,063 views · retention 44%</title></circle>
+<circle cx="324.7" cy="193.3" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>May 24 · 47s · 4,379 views · retention 35%</title></circle>
+<circle cx="416.8" cy="165.7" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>May 25 · 63s · 9,882 views · retention 53%</title></circle>
+<circle cx="428.3" cy="237.0" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>May 25 · 65s · 1,208 views · retention 33%</title></circle>
+<circle cx="307.4" cy="121.4" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>May 26 · 44s · 36,471 views · retention 78%</title></circle>
+<circle cx="290.1" cy="245.8" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>May 27 · 41s · 931 views · retention 61%</title></circle>
+<circle cx="612.6" cy="236.1" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>May 27 · 97s · 1,239 views · retention 37%</title></circle>
+<circle cx="249.8" cy="223.8" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>May 29 · 34s · 1,783 views · retention 60%</title></circle>
+<circle cx="313.1" cy="210.7" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>May 30 · 45s · 2,624 views · retention 39%</title></circle>
+<circle cx="693.2" cy="255.5" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>May 31 · 111s · 699 views · retention 49%</title></circle>
+<circle cx="255.6" cy="275.4" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jun 01 · 35s · 389 views · retention 39%</title></circle>
+<circle cx="353.5" cy="244.7" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jun 02 · 52s · 961 views · retention 38%</title></circle>
+<circle cx="560.8" cy="245.4" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jun 04 · 88s · 943 views · retention 34%</title></circle>
+<circle cx="388.0" cy="232.9" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jun 05 · 58s · 1,364 views · retention 30%</title></circle>
+<circle cx="393.8" cy="247.9" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jun 06 · 59s · 875 views · retention 30%</title></circle>
+<circle cx="451.4" cy="202.4" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jun 07 · 69s · 3,347 views · retention 38%</title></circle>
+<circle cx="624.1" cy="254.5" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jun 09 · 99s · 721 views · retention 26%</title></circle>
+<circle cx="244.0" cy="168.5" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jun 10 · 33s · 9,102 views · retention 59%</title></circle>
+<circle cx="382.2" cy="242.6" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jun 11 · 57s · 1,025 views · retention 45%</title></circle>
+<circle cx="307.4" cy="254.3" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jun 12 · 44s · 725 views · retention 52%</title></circle>
+<circle cx="474.4" cy="246.2" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jun 13 · 73s · 921 views · retention 37%</title></circle>
+<circle cx="601.1" cy="241.4" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jun 14 · 95s · 1,061 views · retention 30%</title></circle>
+<circle cx="411.0" cy="217.2" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jun 16 · 62s · 2,163 views · retention 39%</title></circle>
+<circle cx="416.8" cy="107.4" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jun 17 · 63s · 55,013 views · retention 50%</title></circle>
+<circle cx="353.5" cy="207.4" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jun 18 · 52s · 2,888 views · retention 46%</title></circle>
+<circle cx="353.5" cy="142.5" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jun 20 · 52s · 19,576 views · retention 46%</title></circle>
+<circle cx="313.1" cy="235.4" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jun 21 · 45s · 1,265 views · retention 56%</title></circle>
+<circle cx="301.6" cy="234.4" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jun 22 · 43s · 1,303 views · retention 47%</title></circle>
+<circle cx="485.9" cy="250.5" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jun 23 · 75s · 810 views · retention 21%</title></circle>
+<circle cx="422.6" cy="134.0" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jun 24 · 64s · 25,116 views · retention 45%</title></circle>
+<circle cx="359.2" cy="124.6" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jun 26 · 53s · 33,177 views · retention 51%</title></circle>
+<circle cx="226.8" cy="139.8" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jun 27 · 30s · 21,203 views · retention 74%</title></circle>
+<circle cx="192.2" cy="111.0" r="5" fill="var(--accent)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jun 28 · 24s · 49,443 views · retention 66%</title></circle>
+<circle cx="209.5" cy="123.1" r="5" fill="var(--accent)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jun 29 · 27s · 34,638 views · retention 67%</title></circle>
+<circle cx="284.3" cy="104.5" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jun 30 · 40s · 60,046 views · retention 51%</title></circle>
+<circle cx="485.9" cy="199.5" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jul 01 · 75s · 3,647 views · retention 30%</title></circle>
+<circle cx="439.8" cy="215.0" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jul 02 · 67s · 2,309 views · retention 35%</title></circle>
+<circle cx="451.4" cy="149.1" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jul 03 · 69s · 16,121 views · retention 42%</title></circle>
+<circle cx="595.3" cy="245.4" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jul 03 · 94s · 942 views · retention 23%</title></circle>
+<circle cx="445.6" cy="123.3" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jul 04 · 68s · 34,436 views · retention 43%</title></circle>
+<circle cx="445.6" cy="213.0" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jul 05 · 68s · 2,446 views · retention 37%</title></circle>
+<circle cx="226.8" cy="89.0" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jul 06 · 30s · 94,608 views · retention 59%</title></circle>
+<circle cx="313.1" cy="185.6" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jul 07 · 45s · 5,488 views · retention 56%</title></circle>
+<circle cx="290.1" cy="191.8" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jul 07 · 41s · 4,580 views · retention 48%</title></circle>
+<circle cx="434.1" cy="175.9" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jul 08 · 66s · 7,315 views · retention 44%</title></circle>
+<circle cx="451.4" cy="49.2" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jul 09 · 69s · 305,936 views · retention 46%</title></circle>
+<circle cx="537.7" cy="139.7" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jul 10 · 84s · 21,227 views · retention 49%</title></circle>
+<circle cx="318.9" cy="114.8" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jul 10 · 46s · 44,219 views · retention 50%</title></circle>
+<circle cx="445.6" cy="172.4" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jul 11 · 68s · 8,115 views · retention 46%</title></circle>
+<circle cx="399.5" cy="158.8" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jul 11 · 60s · 12,109 views · retention 47%</title></circle>
+<circle cx="388.0" cy="129.2" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jul 12 · 58s · 28,929 views · retention 50%</title></circle>
+<circle cx="388.0" cy="146.9" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jul 13 · 58s · 17,184 views · retention 48%</title></circle>
+<circle cx="445.6" cy="184.0" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jul 14 · 68s · 5,756 views · retention 37%</title></circle>
+<circle cx="422.6" cy="173.1" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jul 15 · 64s · 7,935 views · retention 35%</title></circle>
+<circle cx="416.8" cy="191.1" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jul 16 · 63s · 4,670 views · retention 33%</title></circle>
+<circle cx="416.8" cy="90.8" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jul 17 · 63s · 89,797 views · retention 44%</title></circle>
+<circle cx="468.6" cy="190.0" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jul 17 · 72s · 4,819 views · retention 33%</title></circle>
+<circle cx="221.0" cy="118.4" r="5" fill="var(--accent)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jul 18 · 29s · 39,810 views · retention 68%</title></circle>
+<circle cx="186.5" cy="149.9" r="5" fill="var(--accent)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jul 19 · 23s · 15,737 views · retention 78%</title></circle>
+<circle cx="203.7" cy="141.0" r="5" fill="var(--accent)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jul 21 · 26s · 20,435 views · retention 67%</title></circle>
+<circle cx="151.9" cy="36.1" r="5" fill="var(--accent)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jul 22 · 17s · 450,295 views · retention 100%</title></circle>
+<circle cx="157.7" cy="130.6" r="5" fill="var(--accent)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jul 23 · 18s · 27,764 views · retention 90%</title></circle>
+<circle cx="209.5" cy="106.8" r="5" fill="var(--accent)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jul 24 · 27s · 55,996 views · retention 72%</title></circle>
+<circle cx="572.3" cy="173.7" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jul 25 · 90s · 7,790 views · retention 41%</title></circle>
+<circle cx="209.5" cy="129.5" r="5" fill="var(--accent)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jul 26 · 27s · 28,693 views · retention 62%</title></circle>
+<circle cx="169.2" cy="154.9" r="5" fill="var(--accent)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jul 27 · 20s · 13,582 views · retention 75%</title></circle>
+<circle cx="157.7" cy="131.0" r="5" fill="var(--accent)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jul 27 · 18s · 27,446 views · retention 79%</title></circle>
+<circle cx="151.9" cy="34.9" r="5" fill="var(--accent)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jul 28 · 17s · 466,373 views · retention 105%</title></circle>
+<circle cx="146.1" cy="172.9" r="5" fill="var(--accent)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jul 29 · 16s · 7,991 views · retention 84%</title></circle>
+<circle cx="382.2" cy="173.8" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jul 30 · 57s · 7,771 views · retention 49%</title></circle>
+<circle cx="439.8" cy="192.7" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Jul 31 · 67s · 4,458 views · retention 34%</title></circle>
+<circle cx="405.3" cy="206.9" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Aug 01 · 61s · 2,936 views · retention 28%</title></circle>
+<circle cx="549.2" cy="196.3" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Aug 02 · 86s · 4,006 views · retention 27%</title></circle>
+<circle cx="411.0" cy="195.0" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Aug 03 · 62s · 4,166 views · retention 24%</title></circle>
+<circle cx="595.3" cy="207.6" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Aug 03 · 94s · 2,868 views · retention 22%</title></circle>
+<circle cx="301.6" cy="211.5" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Aug 03 · 43s · 2,559 views · retention 28%</title></circle>
+<circle cx="330.4" cy="196.9" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Aug 04 · 48s · 3,940 views · retention 42%</title></circle>
+<circle cx="618.4" cy="201.2" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Aug 05 · 98s · 3,464 views · retention 17%</title></circle>
+<circle cx="416.8" cy="207.7" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Aug 06 · 63s · 2,862 views · retention 36%</title></circle>
+<circle cx="382.2" cy="232.8" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Aug 07 · 57s · 1,365 views · retention 27%</title></circle>
+<circle cx="439.8" cy="186.0" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Aug 08 · 67s · 5,429 views · retention 25%</title></circle>
+<circle cx="445.6" cy="201.8" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Aug 09 · 68s · 3,412 views · retention 22%</title></circle>
+<circle cx="439.8" cy="225.2" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Aug 10 · 67s · 1,712 views · retention 24%</title></circle>
+<circle cx="249.8" cy="221.5" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Aug 10 · 34s · 1,907 views · retention 42%</title></circle>
+<circle cx="393.8" cy="236.8" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Aug 11 · 59s · 1,214 views · retention 27%</title></circle>
+<circle cx="278.6" cy="201.5" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Aug 12 · 39s · 3,440 views · retention 39%</title></circle>
+<circle cx="221.0" cy="192.9" r="5" fill="var(--accent)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Aug 13 · 29s · 4,434 views · retention 52%</title></circle>
+<circle cx="347.7" cy="268.9" r="4" fill="var(--dot-mut)" fill-opacity="0.85" stroke="var(--card)" stroke-width="1.5"><title>Aug 15 · 51s · 471 views · retention 29%</title></circle>
+<text x="706" y="334" class="cax" text-anchor="end">reel length →</text>
+</svg>
+    <figcaption>All 116 reels. Views on a logarithmic scale, so each gridline is 10× the one below.
+      Points left of the dashed line are under 30 seconds. Hover any point for its detail.</figcaption>
+  </figure>
+  <div class="tw"><table><thead><tr><th>Published</th><th class="r">Length</th><th class="r">Views</th><th class="r">Retention</th></tr></thead><tbody>
+<tr><td>Jul 28</td><td class="r n">17s</td><td class="r n em">466,373</td><td class="r n">105%</td></tr>
+<tr><td>Jul 22</td><td class="r n">17s</td><td class="r n em">450,295</td><td class="r n">100%</td></tr>
+<tr><td>Jul 24</td><td class="r n">27s</td><td class="r n em">55,996</td><td class="r n">72%</td></tr>
+<tr><td>Jun 28</td><td class="r n">24s</td><td class="r n em">49,443</td><td class="r n">66%</td></tr>
+<tr><td>Jul 18</td><td class="r n">29s</td><td class="r n em">39,810</td><td class="r n">68%</td></tr>
+<tr><td>Jun 29</td><td class="r n">27s</td><td class="r n em">34,638</td><td class="r n">67%</td></tr>
+<tr><td>Jul 26</td><td class="r n">27s</td><td class="r n em">28,693</td><td class="r n">62%</td></tr>
+<tr><td>Jul 23</td><td class="r n">18s</td><td class="r n em">27,764</td><td class="r n">90%</td></tr>
+<tr><td>Jul 27</td><td class="r n">18s</td><td class="r n em">27,446</td><td class="r n">79%</td></tr>
+<tr><td>Jul 21</td><td class="r n">26s</td><td class="r n em">20,435</td><td class="r n">67%</td></tr>
+<tr><td>Jul 19</td><td class="r n">23s</td><td class="r n em">15,737</td><td class="r n">78%</td></tr>
+<tr><td>Jul 27</td><td class="r n">20s</td><td class="r n em">13,582</td><td class="r n">75%</td></tr>
+<tr><td>Jul 29</td><td class="r n">16s</td><td class="r n em">7,991</td><td class="r n">84%</td></tr>
+<tr class="flag"><td>Aug 13</td><td class="r n">29s</td><td class="r n em">4,434</td><td class="r n">52%</td></tr>
+</tbody></table></div>
+</section>
+
+<section>
+  <h2>Ruling out coincidence</h2>
+  <p class="dek">It isn't that your good month happened to be your short month.</p>
+  <p>The obvious objection is timing — maybe short reels just happened to land during a lucky
+    stretch. They didn't. Comparing short against long <em>inside</em> each month, where the
+    algorithm, the season and your audience are all held constant, the gap survives:</p>
+  <div class="tw"><table><thead><tr><th>Month</th><th>Reel length</th><th class="r">Reels</th><th class="r">Median views</th><th class="r">Median retention</th></tr></thead><tbody>
+<tr><td>May</td><td>45s and over</td><td class="r n">27</td><td class="r n em">800</td><td class="r n">44%</td></tr>
+<tr class="hi"><td>Jun</td><td>under 30s</td><td class="r n">2</td><td class="r n em">42,040</td><td class="r n">66%</td></tr>
+<tr><td>Jun</td><td>45s and over</td><td class="r n">17</td><td class="r n em">1,265</td><td class="r n">38%</td></tr>
+<tr class="hi"><td>Jul</td><td>under 30s</td><td class="r n">11</td><td class="r n em">27,764</td><td class="r n">78%</td></tr>
+<tr><td>Jul</td><td>45s and over</td><td class="r n">23</td><td class="r n em">7,790</td><td class="r n">43%</td></tr>
+<tr><td>Aug</td><td>45s and over</td><td class="r n">13</td><td class="r n em">2,936</td><td class="r n">27%</td></tr>
+</tbody></table></div>
+  <div class="callout">
+    <p>In June, short reels out-performed long ones by roughly 33×. In July, by 3.6×. There is no
+      month in this data where the longer reels won.</p>
+  </div>
+</section>
+
+<section>
+  <h2>August</h2>
+  <p class="dek">Two things went wrong, and only one of them is length.</p>
+  <p>July was your best month — a median of 14,660 views. August fell to 2,936.
+    Part of that is straightforward: 13 of your
+    17 August reels were 45 seconds or longer, and you published exactly one short reel all month.</p>
+  <figure><svg viewBox="0 0 720 230" width="100%" role="img" aria-label="Median views by month">
+<text x="0" y="14" class="ct">MEDIAN VIEWS PER REEL, BY MONTH</text>
+<rect x="82.7" y="184.3" width="73.0" height="5.7" rx="4" fill="var(--bar-mut)"><title>2026-04: median 507 views across 1 reels</title></rect>
+<text x="119.2" y="177.3" class="cv" text-anchor="middle">507</text>
+<text x="119.2" y="208.0" class="cax" text-anchor="middle">Apr</text>
+<text x="119.2" y="222.0" class="cn2" text-anchor="middle">1 reels</text>
+<rect x="213.1" y="181.1" width="73.0" height="8.9" rx="4" fill="var(--bar-mut)"><title>2026-05: median 800 views across 37 reels</title></rect>
+<text x="249.6" y="174.1" class="cv" text-anchor="middle">800</text>
+<text x="249.6" y="208.0" class="cax" text-anchor="middle">May</text>
+<text x="249.6" y="222.0" class="cn2" text-anchor="middle">37 reels</text>
+<rect x="343.5" y="174.7" width="73.0" height="15.3" rx="4" fill="var(--bar-mut)"><title>2026-06: median 1,364 views across 25 reels</title></rect>
+<text x="380.0" y="167.7" class="cv" text-anchor="middle">1,364</text>
+<text x="380.0" y="208.0" class="cax" text-anchor="middle">Jun</text>
+<text x="380.0" y="222.0" class="cn2" text-anchor="middle">25 reels</text>
+<rect x="473.9" y="26.0" width="73.0" height="164.0" rx="4" fill="var(--accent)"><title>2026-07: median 14,660 views across 36 reels</title></rect>
+<text x="510.4" y="19.0" class="cv" text-anchor="middle">14,660</text>
+<text x="510.4" y="208.0" class="cax" text-anchor="middle">Jul</text>
+<text x="510.4" y="222.0" class="cn2" text-anchor="middle">36 reels</text>
+<rect x="604.3" y="157.2" width="73.0" height="32.8" rx="4" fill="var(--alarm)"><title>2026-08: median 2,936 views across 17 reels</title></rect>
+<text x="640.8" y="150.2" class="cv" text-anchor="middle">2,936</text>
+<text x="640.8" y="208.0" class="cax" text-anchor="middle">Aug</text>
+<text x="640.8" y="222.0" class="cn2" text-anchor="middle">17 reels</text>
+</svg>
+    <figcaption>Median views per reel by month. August is partial (1–15 Aug).</figcaption>
+  </figure>
+  <p>But length isn't the whole story. Holding length constant — looking only at reels
+    45 seconds and over — retention had been stable around 38–44% from May through July, then fell
+    to 27% in August at the same median length. Your long reels didn't just stay
+    long; they got materially less watchable.</p>
+  <div class="tw"><table><thead><tr><th>Month</th><th class="r">Reels</th><th class="r">Median length</th><th class="r">Median reach</th><th class="r">Median views</th><th class="r">Retention, 45s+ reels</th><th class="r">Recommendation share</th></tr></thead><tbody>
+<tr><td>Apr</td><td class="r n">1</td><td class="r n">43s</td><td class="r n">693</td><td class="r n em">507</td><td class="r n">—</td><td class="r n">—</td></tr>
+<tr><td>May</td><td class="r n">37</td><td class="r n">56s</td><td class="r n">1,184</td><td class="r n em">800</td><td class="r n">44%</td><td class="r n">84%</td></tr>
+<tr><td>Jun</td><td class="r n">25</td><td class="r n">53s</td><td class="r n">2,239</td><td class="r n em">1,364</td><td class="r n">38%</td><td class="r n">85%</td></tr>
+<tr><td>Jul</td><td class="r n">36</td><td class="r n">59s</td><td class="r n">20,270</td><td class="r n em">14,660</td><td class="r n">43%</td><td class="r n">87%</td></tr>
+<tr class="flag"><td>Aug</td><td class="r n">17</td><td class="r n">61s</td><td class="r n">5,028</td><td class="r n em">2,936</td><td class="r n">27%</td><td class="r n">67%</td></tr>
+</tbody></table></div>
+  <div class="callout warn">
+    <p>The consequence shows up in the recommendation share. For reels mature enough to have
+      finished their run, 84–87% of watch time came from
+      recommendations in May–July. In August that fell to 67%, and median reach
+      dropped from 20,270 to 5,028.</p>
+    <p>That is Facebook doing what it is designed to do: it stopped showing your reels to strangers
+      because the retention signal told it not to. It isn't a penalty, and there is nothing to appeal.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Where the views come from</h2>
+  <p class="dek">Your 33,000 followers are almost irrelevant to your reach.</p>
+  <p>Across all 116 reels, watch time splits 94% recommendations,
+    5.9% followers, 0.1% shares. Your follower base
+    contributes roughly 1,467 hours against 23,248 hours from people who
+    have never heard of you.</p>
+  <p>This is worth internalising, because it reframes what a bad reel means. A reel that gets
+    2,000 views hasn't been rejected by your audience — it has been declined by the recommendation
+    engine, and your followers were most of who saw it. The follower count is a floor, not an engine.
+    Every breakout you have had came from strangers.</p>
+  <figure><svg viewBox="0 0 720 300" width="100%" role="img" aria-label="Retention curves, best versus worst reels">
+<text x="0" y="14" class="ct">SHARE OF VIEWERS STILL WATCHING</text>
+<line x1="50" y1="258.0" x2="616" y2="258.0" class="grid"/>
+<text x="42" y="262.0" class="cax" text-anchor="end">0%</text>
+<line x1="50" y1="200.0" x2="616" y2="200.0" class="grid"/>
+<text x="42" y="204.0" class="cax" text-anchor="end">25%</text>
+<line x1="50" y1="142.0" x2="616" y2="142.0" class="grid"/>
+<text x="42" y="146.0" class="cax" text-anchor="end">50%</text>
+<line x1="50" y1="84.0" x2="616" y2="84.0" class="grid"/>
+<text x="42" y="88.0" class="cax" text-anchor="end">75%</text>
+<line x1="50" y1="26.0" x2="616" y2="26.0" class="grid"/>
+<text x="42" y="30.0" class="cax" text-anchor="end">100%</text>
+<text x="50.0" y="278" class="cax" text-anchor="middle">start</text>
+<text x="191.5" y="278" class="cax" text-anchor="middle">25%</text>
+<text x="333.0" y="278" class="cax" text-anchor="middle">halfway</text>
+<text x="474.5" y="278" class="cax" text-anchor="middle">75%</text>
+<text x="616.0" y="278" class="cax" text-anchor="middle">end</text>
+<polyline points="50.0,26.0 78.3,28.7 106.6,43.2 134.9,58.0 163.2,71.4 191.5,81.1 219.8,89.9 248.1,96.1 276.4,101.9 304.7,106.4 333.0,110.7 361.3,114.9 389.6,119.6 417.9,123.3 446.2,126.3 474.5,128.9 502.8,132.7 531.1,136.9 559.4,139.6 587.7,142.4 616.0,145.0" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="50.0" cy="26.0" r="4.5" fill="var(--accent)" stroke="var(--card)" stroke-width="2"><title>Top 20% — 0% through: 100% still watching</title></circle>
+<circle cx="191.5" cy="81.1" r="4.5" fill="var(--accent)" stroke="var(--card)" stroke-width="2"><title>Top 20% — 25% through: 76% still watching</title></circle>
+<circle cx="333.0" cy="110.7" r="4.5" fill="var(--accent)" stroke="var(--card)" stroke-width="2"><title>Top 20% — 50% through: 63% still watching</title></circle>
+<circle cx="474.5" cy="128.9" r="4.5" fill="var(--accent)" stroke="var(--card)" stroke-width="2"><title>Top 20% — 75% through: 56% still watching</title></circle>
+<circle cx="616.0" cy="145.0" r="4.5" fill="var(--accent)" stroke="var(--card)" stroke-width="2"><title>Top 20% — 100% through: 49% still watching</title></circle>
+<polyline points="50.0,26.0 78.3,35.5 106.6,67.7 134.9,87.8 163.2,99.8 191.5,106.5 219.8,112.8 248.1,118.4 276.4,123.3 304.7,126.9 333.0,130.2 361.3,133.3 389.6,135.4 417.9,137.6 446.2,138.7 474.5,140.0 502.8,141.7 531.1,143.6 559.4,145.2 587.7,146.7 616.0,150.1" fill="none" stroke="var(--alarm)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="50.0" cy="26.0" r="4.5" fill="var(--alarm)" stroke="var(--card)" stroke-width="2"><title>Bottom 20% — 0% through: 100% still watching</title></circle>
+<circle cx="191.5" cy="106.5" r="4.5" fill="var(--alarm)" stroke="var(--card)" stroke-width="2"><title>Bottom 20% — 25% through: 65% still watching</title></circle>
+<circle cx="333.0" cy="130.2" r="4.5" fill="var(--alarm)" stroke="var(--card)" stroke-width="2"><title>Bottom 20% — 50% through: 55% still watching</title></circle>
+<circle cx="474.5" cy="140.0" r="4.5" fill="var(--alarm)" stroke="var(--card)" stroke-width="2"><title>Bottom 20% — 75% through: 51% still watching</title></circle>
+<circle cx="616.0" cy="150.1" r="4.5" fill="var(--alarm)" stroke="var(--card)" stroke-width="2"><title>Bottom 20% — 100% through: 47% still watching</title></circle>
+<text x="628" y="132.5" class="clg" fill="var(--accent)">Top 20%</text>
+<text x="628" y="147.5" class="cn2">ends 49%</text>
+<text x="628" y="166.5" class="clg" fill="var(--alarm)">Bottom 20%</text>
+<text x="628" y="181.5" class="cn2">ends 47%</text>
+</svg>
+    <figcaption>Average share of viewers still watching, sampled across each reel's length.
+      Top and bottom 20% by views, 23 reels each.</figcaption>
+  </figure>
+  <p>The two curves separate almost immediately and never reconverge. By a quarter of the way in,
+    the gap is already most of what it will ever be — which tells you the opening seconds, not the
+    payoff, are doing the sorting.</p>
+</section>
+
+<section>
+  <h2>What to post about</h2>
+  <p class="dek">A named character with a myth to overturn.</p>
+  <p>This section rests on weaker evidence than the rest, and it's worth saying why: only 38 of your
+    116 reels carry a title in the export, and neither of your two biggest reels is among them. What
+    follows is a real pattern in the titles that exist, not a verdict on your whole catalogue.</p>
+  <div class="tw"><table><thead><tr><th class="r">Views</th><th class="r">Len</th><th>Title</th></tr></thead><tbody>
+<tr class="hi"><td class="r n em">143,747</td><td class="r n">71s</td><td>Billy the Kid&#x27;s scars tell a story Pat Garrett never wanted you to hear 🤠</td></tr>
+<tr class="hi"><td class="r n em">55,013</td><td class="r n">63s</td><td>Doc Holliday Wasn’t the Killer You Think</td></tr>
+<tr class="hi"><td class="r n em">25,116</td><td class="r n">64s</td><td>The Outlaw Gangs That Ruled the Wild West</td></tr>
+<tr class="hi"><td class="r n em">19,576</td><td class="r n">52s</td><td>The Deadly Dandy Nobody Wanted to Draw On</td></tr>
+<tr class="hi"><td class="r n em">9,882</td><td class="r n">63s</td><td>He Wore Steel Armor To Every Gunfight</td></tr>
+<tr class="hi"><td class="r n em">9,102</td><td class="r n">33s</td><td>Bass Reeves Son WANTED For Murder 💔</td></tr>
+<tr class="hi"><td class="r n em">4,379</td><td class="r n">47s</td><td>Jesse James FAKED His Death in 1882... Here&#x27;s the PROOF 🤠</td></tr>
+<tr class="hi"><td class="r n em">2,888</td><td class="r n">52s</td><td>The Wild Bunch’s Most Feared Killer</td></tr>
+<tr class="gap"><td colspan="3">· · · 24 reels between · · ·</td></tr>
+<tr class="flag"><td class="r n">490</td><td class="r n">38s</td><td>Did Billy the Kid fake his own death? 🤠</td></tr>
+<tr class="flag"><td class="r n">389</td><td class="r n">35s</td><td>The Bear River Massacre: A Hidden American Tragedy</td></tr>
+<tr class="flag"><td class="r n">358</td><td class="r n">36s</td><td>Billy the Kid DIDN&#x27;T Die the Way They Said | Here&#x27;s What&#x27;s WRONG</td></tr>
+<tr class="flag"><td class="r n">355</td><td class="r n">56s</td><td>Before Jesse James, There Was The Reno Gang 🚂</td></tr>
+<tr class="flag"><td class="r n">346</td><td class="r n">36s</td><td>America&#x27;s First Detectives Broke the Law to Catch Outlaws</td></tr>
+<tr class="flag"><td class="r n">278</td><td class="r n">48s</td><td>CROSSING Borders: How the Pinkertons Caught the Reno Gang</td></tr>
+</tbody></table></div>
+  <p>The reels at the top name one person and promise to overturn something you thought you knew —
+    Doc Holliday wasn't the killer you think; Billy the Kid's scars tell a story Pat Garrett didn't
+    want told. The ones at the bottom are about <em>institutions and events</em>: the Pinkertons, the
+    Reno Gang, the Bear River Massacre, America's first detectives. Same research quality, no
+    protagonist to attach to in the first two seconds.</p>
+  <div class="callout">
+    <p>One specific pattern to stop: some version of "did Billy the Kid fake his own death?" appears
+      eight times between May and August. Seven of those returned under 2,500 views. The single Billy
+      the Kid reel that broke out took a different angle entirely — the scars, and Pat Garrett's
+      motive. The topic isn't exhausted; that particular question is.</p>
+  </div>
+</section>
+
+<section>
+  <h2>What to do</h2>
+  <p class="dek">Four changes, in the order they'll pay.</p>
+  <ol class="steps">
+    <li><h3>Cap the next twenty reels at 30 seconds</h3>
+      <p>Not "shorter" — capped. This is the highest-confidence finding in the data and it costs you
+        nothing to test. If it works you'll know inside a week, because recommendation traffic
+        arrives fast or not at all.</p></li>
+    <li><h3>Cut to the payoff, don't compress the whole story</h3>
+      <p>The 17-second reels that hit 466K and 450K retained over 99% — viewers watched them more
+        than once. That comes from making one point cleanly, not from narrating a 70-second script
+        at speed.</p></li>
+    <li><h3>Lead with a person, and with the correction</h3>
+      <p>Name the character in the first line and state what everyone gets wrong. Save the
+        institutional and massacre material for when you have the reach to spend on it.</p></li>
+    <li><h3>Re-cut your existing winners</h3>
+      <p>Your 305K reel is 69 seconds and your 143K is 71. Both already proved the topic works.
+        Cutting each into a 20-second version is the cheapest inventory you have.</p></li>
+  </ol>
+</section>
+
+<section>
+  <h2>What this can't tell you</h2>
+  <p class="dek">The honest limits of this data.</p>
+  <ul class="plain">
+    <li><strong>The export starts 27 April, not 1 January.</strong> Whatever you posted before that
+      isn't here, so "when did it change" only reaches back three and a half months.</li>
+    <li><strong>78 of 116 reels have no title.</strong> Topic conclusions come from the 38 that do,
+      and those are almost all May–June — the weaker period. Both 450K+ reels are untitled, so what
+      actually made them work is unknown.</li>
+    <li><strong>This is observational, not an experiment.</strong> Short reels might also have been
+      your better ideas, or your better edits. Length is the strongest single explanation in the data
+      and it holds within every month, but the clean test is deliberate: post a mediocre idea short
+      and a strong idea long, and compare.</li>
+    <li><strong>August reels are young.</strong> Reels published in the last few days hadn't finished
+      accumulating views. Restricting to reels at least ten days old, the August median is still
+      about 3,464 — so the decline is real, but the exact August figures will improve somewhat.</li>
+  </ul>
+</section>
+
+<footer>
+  Generated from the Meta Business Suite video-level export ·
+  116 reels, 27 Apr – 15 Aug 2026 · medians throughout ·
+  analysis scripts in facebook/ of the youtube-niches repository
+</footer>
+</div>
