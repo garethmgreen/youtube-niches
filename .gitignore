@@ -1,0 +1,6 @@
+facebook/data/
+*.csv
+!facebook/sample_*.csv
+report.md
+__pycache__/
+.env
