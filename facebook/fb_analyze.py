@@ -281,12 +281,19 @@ def load_json(path):
 
 
 def find_col(headers, *token_sets):
-    """Find the first header matching any token set (all tokens must appear)."""
+    """Find the header best matching any token set (all tokens must appear).
+
+    Among headers that match, the shortest wins. Meta ships combined columns
+    like "Reactions, comments and shares" alongside the individual "Reactions",
+    "Comments" and "Shares" columns; a first-match rule would bind all three
+    names to the combined column and triple-count engagement.
+    """
     lowered = {h: h.lower() for h in headers}
     for tokens in token_sets:
-        for header, low in lowered.items():
-            if all(tok in low for tok in tokens):
-                return header
+        matches = [h for h, low in lowered.items() if all(tok in low for tok in tokens)]
+        if matches:
+            exact = [h for h in matches if lowered[h].strip() == " ".join(tokens)]
+            return exact[0] if exact else min(matches, key=len)
     return None
 
 
