@@ -39,9 +39,11 @@ Unlike some physical traits, red hair actually has the science to back up the an
 8:50 – Close & next steps
 
 **RELATED VIDEOS:**
-Do You Have "The Viking Toe"? (Most People Never Check)
+[1] Do You Have "The Viking Toe"? (Most People Never Check)
+https://www.youtube.com/watch?v=[toe-video-id]
 
-The Viking Finger: Dupuytren's Contracture Explained
+[2] The Viking Finger: Dupuytren's Contracture Explained
+https://www.youtube.com/watch?v=[finger-video-id]
 
 **SOURCES & READING:**
 • MC1R Gene & Red Hair Genetics (Nature Genetics)
