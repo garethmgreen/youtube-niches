@@ -1,0 +1,668 @@
+<title>ISBB Relaunch Brief</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+
+<style>
+  :root{
+    --ground:#E8ECEF;
+    --surface:#F6F8F9;
+    --surface-2:#DDE4E9;
+    --ink:#101E29;
+    --ink-soft:#55697A;
+    --ink-faint:#7C8D9B;
+    --rule:#C3CDD4;
+    --rule-soft:#D6DEE3;
+    --mark:#0E6FA2;
+    --mark-wash:rgba(14,111,162,.13);
+    --accent:#D9481E;
+    --accent-wash:rgba(217,72,30,.10);
+    --shadow:0 1px 0 rgba(16,30,41,.05);
+
+    --f-display:"Big Shoulders Display","Haettenschweiler","Arial Narrow",sans-serif;
+    --f-body:"Source Serif 4",Georgia,"Times New Roman",serif;
+    --f-mono:"IBM Plex Mono","SFMono-Regular",Menlo,Consolas,monospace;
+
+    --measure:64ch;
+    --wide:1080px;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --ground:#0C151D;
+      --surface:#131F2A;
+      --surface-2:#1B2A37;
+      --ink:#E2E9EE;
+      --ink-soft:#8CA1B1;
+      --ink-faint:#6E8494;
+      --rule:#26384A;
+      --rule-soft:#1E2E3D;
+      --mark:#3496C9;
+      --mark-wash:rgba(52,150,201,.17);
+      --accent:#EC5A2A;
+      --accent-wash:rgba(236,90,42,.14);
+      --shadow:0 1px 0 rgba(0,0,0,.3);
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#0C151D;
+    --surface:#131F2A;
+    --surface-2:#1B2A37;
+    --ink:#E2E9EE;
+    --ink-soft:#8CA1B1;
+    --ink-faint:#6E8494;
+    --rule:#26384A;
+    --rule-soft:#1E2E3D;
+    --mark:#3496C9;
+    --mark-wash:rgba(52,150,201,.17);
+    --accent:#EC5A2A;
+    --accent-wash:rgba(236,90,42,.14);
+    --shadow:0 1px 0 rgba(0,0,0,.3);
+  }
+
+  *{box-sizing:border-box}
+  body{
+    background:var(--ground);
+    color:var(--ink);
+    font-family:var(--f-body);
+    font-size:17px;
+    line-height:1.62;
+    margin:0;
+    padding:0 20px 96px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .col{max-width:var(--measure);margin-inline:auto}
+  .wide{max-width:var(--wide);margin-inline:auto}
+
+  /* ---------- masthead ---------- */
+  .masthead{
+    max-width:var(--wide);margin:0 auto;
+    padding:56px 0 30px;
+    border-bottom:2px solid var(--ink);
+  }
+  .kicker{
+    font-family:var(--f-mono);
+    font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--accent);font-weight:600;
+    display:flex;gap:10px;align-items:center;flex-wrap:wrap;
+  }
+  .kicker span{color:var(--ink-faint)}
+  h1{
+    font-family:var(--f-display);
+    font-weight:800;
+    font-size:clamp(50px,10.5vw,104px);
+    line-height:.86;
+    letter-spacing:-.012em;
+    text-transform:uppercase;
+    margin:16px 0 0;
+    text-wrap:balance;
+  }
+  .dek{
+    font-size:19px;color:var(--ink-soft);
+    max-width:56ch;margin:20px 0 0;
+  }
+
+  /* ---------- stat strip ---------- */
+  .strip{
+    max-width:var(--wide);margin:0 auto;
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));
+    border-bottom:1px solid var(--rule);
+  }
+  .stat{padding:20px 20px 22px 0}
+  .stat dt{
+    font-family:var(--f-mono);font-size:10px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--ink-faint);margin:0 0 7px;
+  }
+  .stat dd{
+    margin:0;font-family:var(--f-display);font-weight:700;
+    font-size:34px;line-height:1;letter-spacing:-.01em;
+    font-variant-numeric:tabular-nums;
+  }
+  .stat dd small{
+    display:block;font-family:var(--f-mono);font-weight:400;
+    font-size:11px;letter-spacing:.03em;color:var(--ink-soft);
+    margin-top:7px;text-transform:none;
+  }
+
+  /* ---------- sections ---------- */
+  section{max-width:var(--wide);margin:0 auto;padding-top:60px}
+  .eyebrow{
+    font-family:var(--f-mono);font-size:10.5px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--ink-faint);font-weight:500;
+    padding-bottom:10px;border-bottom:1px solid var(--rule);margin-bottom:26px;
+  }
+  h2{
+    font-family:var(--f-display);font-weight:700;
+    font-size:clamp(30px,4.6vw,46px);line-height:.98;
+    letter-spacing:-.008em;text-transform:uppercase;
+    margin:0 0 18px;text-wrap:balance;
+  }
+  h3{
+    font-family:var(--f-display);font-weight:700;
+    font-size:22px;line-height:1.1;letter-spacing:.005em;
+    text-transform:uppercase;margin:34px 0 10px;
+  }
+  p{margin:0 0 17px;max-width:var(--measure)}
+  section > p, section > h3, section > ul, section > ol{max-width:var(--measure)}
+  strong{font-weight:600}
+  em{font-style:italic}
+  a{color:var(--ink);text-decoration-color:var(--accent);text-underline-offset:3px}
+  a:hover{color:var(--accent)}
+  a:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+
+  ul,ol{margin:0 0 17px;padding-left:1.15em}
+  li{margin-bottom:9px}
+  li::marker{color:var(--ink-faint)}
+
+  /* ---------- verdict ---------- */
+  .verdict{
+    max-width:var(--wide);margin:38px auto 0;
+    background:var(--surface);
+    border:1px solid var(--rule);
+    border-left:4px solid var(--accent);
+    padding:28px 30px 24px;
+  }
+  .verdict .label{
+    font-family:var(--f-mono);font-size:10.5px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:12px;
+  }
+  .verdict .headline{
+    font-family:var(--f-display);font-weight:700;
+    font-size:clamp(26px,3.6vw,38px);line-height:1.02;
+    text-transform:uppercase;margin:0 0 14px;text-wrap:balance;
+  }
+  .verdict p{margin:0;color:var(--ink-soft);max-width:68ch}
+  .verdict p + p{margin-top:12px}
+
+  /* ---------- tables ---------- */
+  .scroll{overflow-x:auto;margin:0 0 12px;border:1px solid var(--rule);background:var(--surface)}
+  table{border-collapse:collapse;width:100%;min-width:660px}
+  caption{
+    text-align:left;font-family:var(--f-mono);font-size:11px;
+    letter-spacing:.09em;text-transform:uppercase;color:var(--ink-faint);
+    padding:14px 16px 12px;border-bottom:1px solid var(--rule);
+  }
+  th,td{
+    padding:11px 14px;text-align:left;
+    border-bottom:1px solid var(--rule-soft);
+    font-size:14px;line-height:1.35;
+  }
+  thead th{
+    font-family:var(--f-mono);font-size:10px;font-weight:600;
+    letter-spacing:.11em;text-transform:uppercase;color:var(--ink-faint);
+    border-bottom:1px solid var(--rule);white-space:nowrap;
+    position:sticky;top:0;background:var(--surface);
+  }
+  td.num,th.num{text-align:right;font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-size:13px}
+  td.name{font-weight:600;white-space:nowrap}
+  tbody tr:hover{background:var(--mark-wash)}
+  tbody tr:last-child td{border-bottom:none}
+  tr.self{background:var(--accent-wash)}
+  tr.self:hover{background:var(--accent-wash)}
+  tr.self td.name{color:var(--accent)}
+
+  /* magnitude bar cell */
+  .barcell{width:38%;min-width:150px}
+  .bar{
+    height:9px;background:var(--mark);min-width:2px;
+    border-radius:0 2px 2px 0;display:block;
+  }
+
+  /* chips */
+  .chip{
+    display:inline-block;font-family:var(--f-mono);font-size:10px;
+    letter-spacing:.07em;text-transform:uppercase;padding:3px 7px;
+    border:1px solid var(--rule);color:var(--ink-soft);white-space:nowrap;
+  }
+  .chip.on{background:var(--mark);border-color:var(--mark);color:#fff;font-weight:500}
+  .chip.new{border-color:var(--accent);color:var(--accent);font-weight:500}
+
+  /* ---------- finding callouts ---------- */
+  .findings{
+    display:grid;gap:1px;background:var(--rule);
+    border:1px solid var(--rule);margin:26px 0 0;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  }
+  .finding{background:var(--surface);padding:22px 22px 24px}
+  .finding .fig{
+    font-family:var(--f-display);font-weight:800;font-size:44px;
+    line-height:.9;color:var(--accent);font-variant-numeric:tabular-nums;
+  }
+  .finding .cap{
+    font-family:var(--f-mono);font-size:10.5px;letter-spacing:.11em;
+    text-transform:uppercase;color:var(--ink-faint);margin:11px 0 9px;
+  }
+  .finding p{font-size:15px;margin:0;color:var(--ink-soft);line-height:1.5}
+
+  /* ---------- cluster cards ---------- */
+  .clusters{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:8px}
+  @media(min-width:820px){.clusters{grid-template-columns:repeat(3,1fr)}}
+  .cluster{background:var(--surface);padding:24px 22px 26px;display:flex;flex-direction:column}
+  .cluster .rank{
+    font-family:var(--f-mono);font-size:10px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--ink-faint);margin-bottom:12px;
+  }
+  .cluster h4{
+    font-family:var(--f-display);font-weight:700;font-size:23px;line-height:1.04;
+    text-transform:uppercase;margin:0 0 6px;
+  }
+  .cluster .len{
+    font-family:var(--f-mono);font-size:11px;color:var(--mark);
+    letter-spacing:.05em;margin-bottom:14px;font-weight:500;
+  }
+  .cluster p{font-size:14.5px;line-height:1.52;color:var(--ink-soft);margin:0 0 14px}
+  .cluster ul{font-size:13px;font-family:var(--f-mono);list-style:none;padding:0;margin:auto 0 0;
+    border-top:1px solid var(--rule-soft);padding-top:13px}
+  .cluster ul li{margin:0 0 6px;display:flex;justify-content:space-between;gap:12px;color:var(--ink-soft)}
+  .cluster ul li b{font-weight:500;color:var(--ink);font-variant-numeric:tabular-nums}
+  .cluster.hot{box-shadow:inset 3px 0 0 var(--accent)}
+
+  /* ---------- lanes ---------- */
+  .lanes{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule)}
+  @media(min-width:760px){.lanes{grid-template-columns:1fr 1fr}}
+  .lane{background:var(--surface);padding:26px 24px 28px}
+  .lane .tag{
+    font-family:var(--f-mono);font-size:10px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--ink-faint);margin-bottom:10px;
+  }
+  .lane h4{
+    font-family:var(--f-display);font-weight:700;font-size:26px;line-height:1.02;
+    text-transform:uppercase;margin:0 0 12px;
+  }
+  .lane dl{margin:16px 0 0;border-top:1px solid var(--rule-soft);padding-top:14px}
+  .lane dt{
+    font-family:var(--f-mono);font-size:10px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--ink-faint);margin-bottom:4px;
+  }
+  .lane dd{margin:0 0 13px;font-size:14.5px;line-height:1.48;color:var(--ink-soft)}
+  .lane dd:last-child{margin-bottom:0}
+  .lane p{font-size:15px;color:var(--ink-soft);margin:0}
+
+  .pick{
+    border:1px solid var(--accent);border-top:4px solid var(--accent);
+    background:var(--surface);padding:28px 26px 30px;margin-top:26px;
+  }
+  .pick .tag{
+    font-family:var(--f-mono);font-size:10px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:10px;
+  }
+  .pick h4{
+    font-family:var(--f-display);font-weight:700;font-size:clamp(24px,3.4vw,34px);
+    line-height:1.02;text-transform:uppercase;margin:0 0 14px;text-wrap:balance;
+  }
+  .pick p{max-width:66ch}
+  .pick p:last-child{margin-bottom:0}
+
+  /* ---------- slate ---------- */
+  .slate{border:1px solid var(--rule);background:var(--surface);margin-top:8px}
+  .ep{display:grid;gap:0;padding:24px 24px 26px;border-bottom:1px solid var(--rule-soft)}
+  .ep:last-child{border-bottom:none}
+  @media(min-width:800px){
+    .ep{grid-template-columns:52px 1fr 260px;gap:26px;align-items:start}
+  }
+  .ep .no{
+    font-family:var(--f-display);font-weight:800;font-size:40px;line-height:.8;
+    color:var(--mark);font-variant-numeric:tabular-nums;
+  }
+  .ep .title{
+    font-family:var(--f-display);font-weight:700;font-size:24px;line-height:1.06;
+    text-transform:uppercase;margin:0 0 8px;text-wrap:balance;
+  }
+  .ep .meta{
+    font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--ink-faint);margin-bottom:10px;
+    display:flex;gap:8px;flex-wrap:wrap;
+  }
+  .ep .why{font-size:14.5px;color:var(--ink-soft);margin:0;line-height:1.5;max-width:52ch}
+  .ep .thumb{
+    border-left:2px solid var(--rule);padding-left:16px;
+    font-size:13.5px;color:var(--ink-soft);line-height:1.5;
+  }
+  .ep .thumb b{
+    display:block;font-family:var(--f-mono);font-size:10px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--ink-faint);margin-bottom:7px;font-weight:500;
+  }
+  @media(max-width:799px){
+    .ep .no{font-size:26px;margin-bottom:6px}
+    .ep .thumb{border-left:none;border-top:1px solid var(--rule);padding-left:0;padding-top:14px;margin-top:14px}
+  }
+
+  /* ---------- checklist ---------- */
+  .check{border:1px solid var(--rule);background:var(--surface);margin-top:8px}
+  .check li{
+    list-style:none;padding:16px 22px;border-bottom:1px solid var(--rule-soft);
+    margin:0;display:flex;gap:16px;align-items:baseline;font-size:15px;
+  }
+  .check ul{padding:0;margin:0}
+  .check li:last-child{border-bottom:none}
+  .check li .k{
+    font-family:var(--f-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--mark);white-space:nowrap;min-width:96px;font-weight:500;
+  }
+  .check li span:last-child{color:var(--ink-soft)}
+  .check li b{color:var(--ink);font-weight:600}
+
+  /* ---------- footer ---------- */
+  footer{
+    max-width:var(--wide);margin:72px auto 0;padding-top:26px;
+    border-top:1px solid var(--rule);
+    font-size:13.5px;color:var(--ink-faint);line-height:1.6;
+  }
+  footer h5{
+    font-family:var(--f-mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--ink-soft);margin:0 0 10px;font-weight:600;
+  }
+  footer p{max-width:78ch;margin:0 0 12px;color:var(--ink-faint)}
+  footer .srcs{display:flex;gap:8px;flex-wrap:wrap;font-family:var(--f-mono);font-size:11.5px}
+  footer .srcs a{color:var(--ink-soft)}
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+  }
+</style>
+
+<header class="masthead">
+  <div class="kicker">Channel Review <span>/</span> @ISBByt <span>/</span> August 2026</div>
+  <h1>I Shouldn't<br>Be Breathing</h1>
+  <p class="dek">You built the right channel in the right month and made it in the wrong shape. Here is what the last nine months did to the niche, and what it would take to come back into it.</p>
+</header>
+
+<dl class="strip">
+  <div class="stat"><dt>Subscribers</dt><dd>124</dd></div>
+  <div class="stat"><dt>Videos</dt><dd>42<small>9 long-form · 33 Shorts</small></dd></div>
+  <div class="stat"><dt>Lifetime views</dt><dd>80,809</dd></div>
+  <div class="stat"><dt>Created</dt><dd>Sep '25<small>16 September 2025</small></dd></div>
+  <div class="stat"><dt>Dormant</dt><dd>9 mo<small>last upload Nov 2025</small></dd></div>
+</dl>
+
+<div class="verdict">
+  <div class="label">The call</div>
+  <p class="headline">Restart it. Don't resume it.</p>
+  <p>The demand is far bigger than it was when you quit, and your best tools are newer than your best video. But the format you were making — four-minute AI clips plus a wall of Shorts — is the single worst-performing shape in this niche now, and it was already failing while you were still uploading. Going back and posting more of the same would replay the exact decline in the table below.</p>
+  <p>Keep the channel, the name and the brand. Change the length, pick a lane, and fix the authenticity framing before a single new upload goes live.</p>
+</div>
+
+<section>
+  <div class="eyebrow">Part one — What your own numbers say</div>
+  <h2>The collapse happened while you were still posting</h2>
+  <p>This is the part worth sitting with, because it changes the diagnosis. The story you have in your head is that the channel took off and then faded because you lost interest. The upload record says something different: videos one to three caught the standard new-channel boost, and videos four to nine fell off a cliff <em>before</em> you stopped. You quit after the decline, not before it.</p>
+  <p>That is good news, oddly. It means the problem was not your consistency — it was the content shape. Consistency alone would not have saved it.</p>
+
+  <div class="scroll">
+    <table>
+      <caption>Long-form uploads in publication order · views at 26 Aug 2026</caption>
+      <thead>
+        <tr>
+          <th>#</th><th>Title</th><th class="num">Length</th><th class="num">Views</th><th class="barcell">Relative reach</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="num">1</td><td>48 DAYS LOST: A Storm Capsized Our Boat At Sea</td><td class="num">10:24</td><td class="num">21,541</td><td class="barcell"><span class="bar" style="width:100%"></span></td></tr>
+        <tr><td class="num">2</td><td>21 DAYS TRAPPED: The Frostbite That Saved Us on the Andes</td><td class="num">4:28</td><td class="num">7,400</td><td class="barcell"><span class="bar" style="width:34.4%"></span></td></tr>
+        <tr><td class="num">3</td><td>49 DAYS LOST: Trapped in the Amazon Jungle with NO Food</td><td class="num">4:43</td><td class="num">6,400</td><td class="barcell"><span class="bar" style="width:29.7%"></span></td></tr>
+        <tr><td class="num">4</td><td>BURIED: We Survived the Avalanche But Were Trapped Under 10ft of Snow</td><td class="num">5:57</td><td class="num">239</td><td class="barcell"><span class="bar" style="width:1.1%"></span></td></tr>
+        <tr><td class="num">5</td><td>BURIED ALIVE: We Were Trapped in a Cave for 72 Hours</td><td class="num">2:58</td><td class="num">163</td><td class="barcell"><span class="bar" style="width:0.8%"></span></td></tr>
+        <tr><td class="num">6</td><td>TRAPPED: We Survived 96 Hours Beneath The Ice</td><td class="num">4:01</td><td class="num">72</td><td class="barcell"><span class="bar" style="width:0.4%"></span></td></tr>
+        <tr><td class="num">7</td><td>TRAPPED In A Secret Bunker: We Survived 7 DAYS In The Frozen Whiteout</td><td class="num">4:55</td><td class="num">743</td><td class="barcell"><span class="bar" style="width:3.4%"></span></td></tr>
+        <tr><td class="num">8</td><td>WE SURVIVED 200+ DAYS: The Ultimate Survival Compilation</td><td class="num">27:25</td><td class="num">611</td><td class="barcell"><span class="bar" style="width:2.8%"></span></td></tr>
+        <tr><td class="num">9</td><td>ADRIFT: 38 Days Surviving the Pacific on an Inflatable Raft</td><td class="num">14:53</td><td class="num">523</td><td class="barcell"><span class="bar" style="width:2.4%"></span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="findings">
+    <div class="finding">
+      <div class="fig">10:24</div>
+      <div class="cap">Your only video over ten minutes</div>
+      <p>It is also your only real hit, at 21,541 views — more than the other eight combined. Everything winning in this niche today is long. That is not a coincidence you should ignore twice.</p>
+    </div>
+    <div class="finding">
+      <div class="fig">0.34%</div>
+      <div class="cap">Like rate on that hit</div>
+      <p>74 likes on 21,541 views. A healthy video sits at 2–4%. Even your winner was not holding people — the views arrived, the audience didn't.</p>
+    </div>
+    <div class="finding">
+      <div class="fig">0.15%</div>
+      <div class="cap">Views converted to subscribers</div>
+      <p>80,809 lifetime views produced 124 subscribers. That is the signature of Shorts-feed traffic: it inflates the view count and builds nothing you keep.</p>
+    </div>
+  </div>
+
+  <h3>What the 33 Shorts actually bought you</h3>
+  <p>They pulled roughly 43,700 views between them — over half your lifetime total — with the best one at 6.5K and most clustered around 1,000. In exchange for a large share of your production effort, they delivered a feed audience that does not follow you to a long video. If you come back, Shorts are a trailer for a film that exists, not the product.</p>
+</section>
+
+<section>
+  <div class="eyebrow">Part two — The market you left</div>
+  <h2>In September 2025 the lane was thin. It isn't now.</h2>
+  <p>Your instinct that nobody was doing this was roughly right when you had it. It stopped being right almost immediately. Ten of the channels below launched <em>after</em> your last upload, most of them in the December–March window while the channel sat dark.</p>
+
+  <div class="scroll">
+    <table>
+      <caption>AI &amp; faceless survival-story channels · sorted by monthly views · estimates from Nexlev, Aug 2026</caption>
+      <thead>
+        <tr>
+          <th>Channel</th>
+          <th class="num">Subs</th>
+          <th class="num">Views / mo</th>
+          <th class="num">Est. $ / mo</th>
+          <th class="num">Videos</th>
+          <th class="num">Avg length</th>
+          <th>Build</th>
+          <th>Monetized</th>
+          <th>Started</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="name">Nebula Prophecy</td><td class="num">112K</td><td class="num">9,888,496</td><td class="num">$36,738</td><td class="num">7</td><td class="num">18 min</td><td><span class="chip">AI</span></td><td><span class="chip on">Yes</span></td><td>Sep 2025</td></tr>
+        <tr><td class="name">American Wilderness Survival</td><td class="num">2.49K</td><td class="num">395,565</td><td class="num">—</td><td class="num">28</td><td class="num">22 min</td><td><span class="chip">AI</span></td><td><span class="chip">No</span></td><td><span class="chip new">May 2026</span></td></tr>
+        <tr><td class="name">Open Water Stories</td><td class="num">9.12K</td><td class="num">305,954</td><td class="num">—</td><td class="num">50</td><td class="num">13 min</td><td><span class="chip">Human</span></td><td><span class="chip">No</span></td><td><span class="chip new">Dec 2025</span></td></tr>
+        <tr><td class="name">Survival Instinct</td><td class="num">22.5K</td><td class="num">214,109</td><td class="num">$1,273</td><td class="num">160</td><td class="num">44 min</td><td><span class="chip">Human</span></td><td><span class="chip on">Yes</span></td><td>Feb 2025</td></tr>
+        <tr><td class="name">Survival Untold Tales</td><td class="num">1.60K</td><td class="num">191,456</td><td class="num">$806</td><td class="num">108</td><td class="num">10 min</td><td><span class="chip">AI</span></td><td><span class="chip on">Yes</span></td><td><span class="chip new">Mar 2026</span></td></tr>
+        <tr><td class="name">Cave Stories</td><td class="num">38.5K</td><td class="num">132,258</td><td class="num">$577</td><td class="num">101</td><td class="num">18 min</td><td><span class="chip">AI</span></td><td><span class="chip on">Yes</span></td><td>Jun 2024</td></tr>
+        <tr><td class="name">Extreme Survival Stories</td><td class="num">27.4K</td><td class="num">102,024</td><td class="num">—</td><td class="num">88</td><td class="num">13 min</td><td><span class="chip">Human</span></td><td><span class="chip">No</span></td><td>Jan 2025</td></tr>
+        <tr><td class="name">Outlived</td><td class="num">11.8K</td><td class="num">89,708</td><td class="num">—</td><td class="num">22</td><td class="num">26 min</td><td><span class="chip">AI</span></td><td><span class="chip">No</span></td><td><span class="chip new">Dec 2025</span></td></tr>
+        <tr><td class="name">Bluewater Films AI</td><td class="num">1.03K</td><td class="num">59,690</td><td class="num">—</td><td class="num">8</td><td class="num">13 min</td><td><span class="chip">AI</span></td><td><span class="chip">No</span></td><td><span class="chip new">Nov 2025</span></td></tr>
+        <tr><td class="name">Our Silent Ancestors</td><td class="num">3.28K</td><td class="num">33,819</td><td class="num">$134</td><td class="num">25</td><td class="num">9 min</td><td><span class="chip">AI</span></td><td><span class="chip on">Yes</span></td><td><span class="chip new">Dec 2025</span></td></tr>
+        <tr><td class="name">Solus AI Cinema</td><td class="num">30.2K</td><td class="num">26,089</td><td class="num">—</td><td class="num">15</td><td class="num">50 min</td><td><span class="chip">AI</span></td><td><span class="chip">No</span></td><td><span class="chip new">Dec 2025</span></td></tr>
+        <tr><td class="name">Silent Disasters</td><td class="num">306</td><td class="num">24</td><td class="num">—</td><td class="num">12</td><td class="num">8 min</td><td><span class="chip">AI</span></td><td><span class="chip">No</span></td><td><span class="chip new">Nov 2025</span></td></tr>
+        <tr><td class="name">Survival Casefiles</td><td class="num">2.17K</td><td class="num">22,933</td><td class="num">$94</td><td class="num">18</td><td class="num">13 min</td><td><span class="chip">Human</span></td><td><span class="chip on">Yes</span></td><td><span class="chip new">Nov 2025</span></td></tr>
+        <tr><td class="name">Human Survival Files</td><td class="num">927</td><td class="num">22,282</td><td class="num">—</td><td class="num">24</td><td class="num">21 min</td><td><span class="chip">AI</span></td><td><span class="chip">No</span></td><td>Jul 2025</td></tr>
+        <tr><td class="name">Human Survival Protocol</td><td class="num">5.49K</td><td class="num">18,304</td><td class="num">—</td><td class="num">39</td><td class="num">36 min</td><td><span class="chip">AI</span></td><td><span class="chip">No</span></td><td><span class="chip new">Dec 2025</span></td></tr>
+        <tr><td class="name">AI Short Movie</td><td class="num">2.42K</td><td class="num">3,242</td><td class="num">—</td><td class="num">51</td><td class="num">11 min</td><td><span class="chip">AI</span></td><td><span class="chip">No</span></td><td>Jan 2025</td></tr>
+        <tr><td class="name">How They Survived</td><td class="num">3.58K</td><td class="num">1,851</td><td class="num">$5</td><td class="num">15</td><td class="num">21 min</td><td><span class="chip">Human</span></td><td><span class="chip on">Yes</span></td><td>Oct 2025</td></tr>
+        <tr><td class="name">Survival Girl Kora</td><td class="num">6.38K</td><td class="num">1,600</td><td class="num">—</td><td class="num">7</td><td class="num">16 min</td><td><span class="chip">AI</span></td><td><span class="chip">No</span></td><td><span class="chip new">Nov 2025</span></td></tr>
+        <tr><td class="name">Guardian Tails</td><td class="num">4.68K</td><td class="num">499</td><td class="num">—</td><td class="num">28</td><td class="num">12 min</td><td><span class="chip">AI</span></td><td><span class="chip">No</span></td><td>Sep 2025</td></tr>
+        <tr class="self"><td class="name">I Shouldn't Be Breathing</td><td class="num">124</td><td class="num">dormant</td><td class="num">—</td><td class="num">9</td><td class="num">9 min</td><td><span class="chip">AI</span></td><td><span class="chip">No</span></td><td>Sep 2025</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>The one row you should read twice</h3>
+  <p><strong>Nebula Prophecy was created the same month you were.</strong> It sat idle through the whole period you were posting, published its first video in May 2026, and is now at 112K subscribers on <em>seven videos</em>, with revenue estimated near $36,700 a month. Whatever else is true, "I started too late" is not an available excuse in this niche. Starting late with the right format beat starting early with the wrong one.</p>
+</section>
+
+<section>
+  <div class="eyebrow">Part three — What actually won</div>
+  <h2>Three formats split this niche, and yours was none of them</h2>
+  <p>The channels above cluster into three distinct products. They are not variations on a theme — they draw different audiences, run at different lengths, and are trending in different directions right now.</p>
+
+  <div class="clusters">
+    <div class="cluster hot">
+      <div class="rank">Cluster A · ascending</div>
+      <h4>AI feature films</h4>
+      <div class="len">45–90 minutes · fiction</div>
+      <p><a href="https://www.youtube.com/@AItrailercinema">AI Trailer Cinema</a> is the category: 221K subscribers and 63.8M lifetime views, with survival as its core genre. Its biggest hits landed in the exact months you were posting four-minute clips — and it is still going now, not coasting on old wins.</p>
+      <ul>
+        <li>Forgotten Soldier <b>10M</b></li>
+        <li>Adrift: Beyond Horizon <b>9M</b></li>
+        <li>Mega Tsunami <em>(1 mo)</em> <b>1.8M</b></li>
+        <li>The Crossing <em>(2 wks)</em> <b>607K</b></li>
+      </ul>
+    </div>
+    <div class="cluster">
+      <div class="rank">Cluster B · cooling</div>
+      <h4>Real-incident docs</h4>
+      <div class="len">10–30 minutes · researched</div>
+      <p>Reconstructions of incidents that actually happened. Big 2025 numbers, but the leaders' recent uploads are a fraction of their peaks — the format is saturating faster than it is growing.</p>
+      <ul>
+        <li>Extreme Survival, peak <b>616K</b></li>
+        <li>…its last three <b>8–14K</b></li>
+        <li>Cave Stories, peak <b>403K</b></li>
+        <li>…its last four <b>1–16K</b></li>
+      </ul>
+    </div>
+    <div class="cluster">
+      <div class="rank">Cluster C · yours</div>
+      <h4>Short AI clips</h4>
+      <div class="len">3–6 minutes · ambiguous</div>
+      <p>Cheap to produce, and that is exactly the problem — everyone can make them, so nothing distinguishes one from the next. The cluster is crowded with sub-1K-view channels and almost none of them are monetized.</p>
+      <ul>
+        <li>Silent Disasters <b>24 / mo</b></li>
+        <li>Guardian Tails <b>499 / mo</b></li>
+        <li>AI Short Movie <b>3,242 / mo</b></li>
+        <li>Your channel <b>dormant</b></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="eyebrow">Part four — The gate</div>
+  <h2>Monetization is the thing that could stop all of this</h2>
+  <p>On <strong>15 July 2026</strong> YouTube renamed its "repetitious content" rule to <strong>"inauthentic content"</strong> in the Partner Program. It targets mass-produced, repetitive uploads that lack genuine originality — synthetic narration over interchangeable footage, every video looking and sounding the same. Thousands of faceless AI channels lost monetization under it, and in January 2026 YouTube terminated sixteen channels holding a combined 35 million subscribers.</p>
+  <p>You can see it in the table: of the fifteen AI-built channels surveyed, <strong>ten are not monetized</strong>. This is not a hypothetical risk in this niche — it is the base rate.</p>
+
+  <h3>What the five monetized ones do differently</h3>
+  <p>They disclose, and they add real editorial work. Cave Stories states its AI use directly in its channel About — <em>"How I use AI: The voiceover uses standard, generic…"</em> — and builds each video on a genuine researched incident. The AI is a production tool applied to real material, not the material itself.</p>
+  <p><strong>Your current framing sits on the wrong side of this line.</strong> Your channel description says the stories are "rooted in real events but told through my own characters," and your video copy says "based on real events." Invented stories presented in the grammar of survivor testimony is precisely the pattern the policy is written to catch. You do not have to abandon fiction — you have to stop dressing it as documentary. Pick one and label it plainly.</p>
+</section>
+
+<section>
+  <div class="eyebrow">Part five — The decision</div>
+  <h2>Two honest lanes, and the gap between them</h2>
+  <p>If you come back, you are choosing one of these. They demand different work and they carry different risks. Trying to run both from one channel is what got you into the authenticity problem in the first place.</p>
+
+  <div class="lanes">
+    <div class="lane">
+      <div class="tag">Lane A</div>
+      <h4>AI survival features</h4>
+      <p>Compete directly with AI Trailer Cinema. Openly fictional, feature-length, genre-cinema framing.</p>
+      <dl>
+        <dt>Ceiling</dt>
+        <dd>Highest in the niche. Million-view videos are landing this month, not last year.</dd>
+        <dt>Cost per video</dt>
+        <dd>Heaviest. A 60-minute AI film is a real production, not an afternoon.</dd>
+        <dt>Policy risk</dt>
+        <dd>Low — clearly labelled fiction has no authenticity problem to begin with.</dd>
+        <dt>The catch</dt>
+        <dd>It is a genre-film business, not the idea you actually care about. And the incumbent has a two-year head start with 226 films shipped.</dd>
+      </dl>
+    </div>
+    <div class="lane">
+      <div class="tag">Lane B</div>
+      <h4>Real incidents, reconstructed</h4>
+      <p>Compete with Cave Stories and Extreme Survival Stories. Researched true events, AI-assisted reconstruction, disclosed.</p>
+      <dl>
+        <dt>Ceiling</dt>
+        <dd>Proven but softening. The leaders' recent uploads are well down on their peaks.</dd>
+        <dt>Cost per video</dt>
+        <dd>Moderate production, but real research hours you cannot skip or fake.</dd>
+        <dt>Policy risk</dt>
+        <dd>Low <em>if</em> you disclose and the research is genuine. This is the lane the monetized channels sit in.</dd>
+        <dt>The catch</dt>
+        <dd>Closest to the ISBA spirit you love, but you are entering a cooling format against established libraries.</dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="pick">
+    <div class="tag">What I'd actually do</div>
+    <h4>Feature-length first-person survival testimony</h4>
+    <p>Here is the gap nobody in this data is standing in. The AI-movie channels all make <em>third-person genre films</em>. The documentary channels all make <em>third-person narration</em> at 10–25 minutes. Not one of them is doing the thing that made <em>I Shouldn't Be Alive</em> work in the first place — <strong>the survivor's own voice, in the first person, at feature length.</strong></p>
+    <p>That was your original instinct. Your channel name is already built on it, and your one genuine hit — "48 DAYS LOST: A Storm Capsized Our Boat At Sea" — is the video that used it most directly. Everyone else dropped the half of the format that carries the emotion, because third-person narration is easier to script. Doing the harder half is what makes you difficult to clone when the next wave of channels arrives.</p>
+    <p>It also resolves the policy problem cleanly: a first-person account of an <em>invented</em> character is a radio drama, and you label it as one — a survival story, told as fiction, at the length of a film. No claim of documentary, no ambiguity, no exposure.</p>
+  </div>
+</section>
+
+<section>
+  <div class="eyebrow">Part six — The slate</div>
+  <h2>Your first five videos back</h2>
+  <p>One environment each, no repeats, released in this order. Every title carries three things that your old titles mostly didn't: a first-person voice, a hard number, and one specific irreversible moment that the thumbnail can show. Target 45–60 minutes. Ship one a fortnight — five videos over ten weeks beats twenty over the same period.</p>
+
+  <div class="slate">
+    <div class="ep">
+      <div class="no">01</div>
+      <div>
+        <p class="title">I Was Adrift For 54 Days. On Day 12 I Made A Choice I Still Can't Explain.</p>
+        <div class="meta"><span>52 min</span><span>·</span><span>Open ocean</span><span>·</span><span>Your proven environment</span></div>
+        <p class="why">Open on the water, because it is the one setting where your audience already showed up — your 21K video and your best Shorts are all lost-at-sea. Lead with the strength while you rebuild the signal.</p>
+      </div>
+      <div class="thumb"><b>Thumbnail</b>Raft dead-centre and tiny, swallowed by a slate-green swell shot from high above. One orange flare is the only warm thing in frame. Two words: <em>DAY 12</em>.</div>
+    </div>
+    <div class="ep">
+      <div class="no">02</div>
+      <div>
+        <p class="title">The Avalanche Buried Four Of Us. Only I Could Move My Hand.</p>
+        <div class="meta"><span>48 min</span><span>·</span><span>Alpine</span><span>·</span><span>Confinement</span></div>
+        <p class="why">Claustrophobia is the strongest hook in the niche — Cave Stories built 38.5K subscribers almost entirely on buried-alive scenarios. The single moving hand gives you a visual the whole film pays off.</p>
+      </div>
+      <div class="thumb"><b>Thumbnail</b>Packed blue-white snow filling the frame, one bare hand breaking the surface at an angle. No face. High contrast, near-monochrome, so the hand is the only event.</div>
+    </div>
+    <div class="ep">
+      <div class="no">03</div>
+      <div>
+        <p class="title">I Survived The Jungle By Following A Bird. It Took 19 Days.</p>
+        <div class="meta"><span>55 min</span><span>·</span><span>Amazon</span><span>·</span><span>Curiosity hook</span></div>
+        <p class="why">The odd, specific detail is what makes this clickable — "following a bird" is a question the title doesn't answer. Your jungle clip did 6.4K on the weakest possible format, so the appetite is already demonstrated.</p>
+      </div>
+      <div class="thumb"><b>Thumbnail</b>Dense green canopy from below, one shaft of light, a small pale bird sharp in focus while the figure beneath is blurred and half-lost. Text: <em>19 DAYS</em>.</div>
+    </div>
+    <div class="ep">
+      <div class="no">04</div>
+      <div>
+        <p class="title">Trapped 400 Feet Down For 9 Days: I Heard The Rescuers Give Up.</p>
+        <div class="meta"><span>50 min</span><span>·</span><span>Cave / mine</span><span>·</span><span>Peak tension</span></div>
+        <p class="why">Place your strongest premise fourth, once the channel has re-established watch history. "I heard them give up" is the most emotionally loaded line in the slate and the hardest to scroll past.</p>
+      </div>
+      <div class="thumb"><b>Thumbnail</b>Total black with a single headlamp cone on wet rock, a figure small at the bottom edge. The darkness is most of the image — it will out-contrast every bright thumbnail beside it in the feed.</div>
+    </div>
+    <div class="ep">
+      <div class="no">05</div>
+      <div>
+        <p class="title">Three Of Us Walked Into The Desert. I Am Telling You This Alone.</p>
+        <div class="meta"><span>47 min</span><span>·</span><span>Desert</span><span>·</span><span>Format test</span></div>
+        <p class="why">A new environment for you, and the one title that states its ending in its first line. Use it to test whether the first-person promise alone can carry a click without a number in the hook.</p>
+      </div>
+      <div class="thumb"><b>Thumbnail</b>Bleached horizon, three sets of footprints in sand where only one set continues past the midpoint. No figure at all — the absence is the image.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="eyebrow">Part seven — Before you upload anything</div>
+  <h2>Channel fixes, in this order</h2>
+  <p>These take an afternoon between them and every one of them is currently working against you.</p>
+
+  <div class="check">
+    <ul>
+      <li><span class="k">Description</span><span>Cut <b>"rooted in real events"</b> and <b>"based on real events"</b> from the channel About and from all nine video descriptions. Replace with a plain line: original fictional survival stories, produced with AI. This is the single highest-value edit on the list.</span></li>
+      <li><span class="k">Disclosure</span><span>Add an explicit AI-use note to the About section, the way the monetized channels in this niche do. Tick the altered-content disclosure on every upload. Disclosure is what separates the five monetized AI channels from the ten that aren't.</span></li>
+      <li><span class="k">Shorts</span><span>Leave the 33 up — they do no harm — but stop making them as a primary output. Future Shorts should be cut <b>from</b> a finished long video, pointing at it.</span></li>
+      <li><span class="k">Titles</span><span>Retitle the six failed videos into first person. They will not suddenly perform, but they make the channel read as one coherent product to anyone who lands on it from video one.</span></li>
+      <li><span class="k">Captions</span><span>Your hit video has no captions. Add them to everything — this niche has heavy silent-autoplay traffic and it costs you nothing.</span></li>
+      <li><span class="k">Banner</span><span>The current banner sells an anthology of clips. It should sell one thing: feature-length survival stories, told by the person who lived them.</span></li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <h5>Method &amp; caveats</h5>
+  <p>Channel and competitor figures pulled from the Nexlev YouTube dataset and live YouTube data on 26 August 2026. Subscriber counts and view counts above ~1,000 are rounded by the source APIs, and publication dates for competitor channels come back bucketed by month — treat month-level timing as approximate and day-level precision as unavailable. Revenue figures are AdSense estimates only; they exclude sponsorship, affiliate and product income, and should be read as order-of-magnitude. "Monetized" reflects the dataset's detection flag rather than confirmed Partner Program status. Your own nine long-form view counts and the 21,541 / 74-like figure are exact reads from the video records.</p>
+  <h5>Policy sources</h5>
+  <div class="srcs">
+    <a href="https://invideo.io/blog/youtube-kills-ai-faceless-channels/">invideo</a>
+    <a href="https://arwriterai.com/en/blog/youtube-inauthentic-content-policy-ai-creators-2026/">arwriterai</a>
+    <a href="https://milx.app/en/news/why-youtube-just-suspended-thousands-of-ai-channels-and-how-to-protect-yours">MilX</a>
+    <a href="https://monetizednow.com/youtube-ai-content-monetization-policy">monetizednow</a>
+  </div>
+</footer>
